@@ -11,4 +11,6 @@
 
 ## 삭제 증빙 스크린샷
 ![EC2 종료 상태](./ec2_terminated.png)
+
+## 무과금 증빙 스크린샷
 ![Billing Dashboard](./billing_proof.png)
