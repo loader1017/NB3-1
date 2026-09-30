@@ -54,12 +54,12 @@
 
 과금 방지를 위하여 모든 실습 리소스는 정상적으로 종료 및 삭제 조치하였으며, 상세 내역 및 증빙은 [`docs/cleanup-checklist.md`](./docs/cleanup-checklist.md)에서 확인하실 수 있습니다.
 
-- [x] EC2 인스턴스 종료 (`Terminated`)[cite: 1]
-- [x] EBS 볼륨 삭제[cite: 1]
-- [x] Elastic IP 해제 (`Release`)[cite: 1]
-- [x] Internet Gateway 삭제[cite: 1]
-- [x] VPC 및 Subnet 삭제[cite: 1]
-- [x] AWS Billing Dashboard 0원 유지 확인[cite: 1]
+- [x] EC2 인스턴스 종료 (`Terminated`)
+- [x] EBS 볼륨 삭제
+- [x] Elastic IP 해제 (`Release`)
+- [x] Internet Gateway 삭제
+- [x] VPC 및 Subnet 삭제
+- [x] AWS Billing Dashboard 0원 유지 확인
 
 ---
 
