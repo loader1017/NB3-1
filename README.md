@@ -25,6 +25,21 @@
 | **EC2 Instance** | 가상 서버 1대 | OS: Ubuntu Server 24.04 LTS (x86)<br>Instance Type: `t2.micro` / `t3.micro` |
 | **Storage** | EBS Volume | 8 GiB (gp3) |
 
+
+### IAM 최소 권한 원칙 적용 (Least Privilege)
+* **전용 IAM 사용자 생성**: Root 계정 대신 EC2 및 VPC 제어 전용 IAM 사용자(`cloud-user`)를 생성하여 실습을 진행했습니다.
+* **최소 권한 정책 적용**: `AdministratorAccess` 대신 EC2/VPC 제어 및 CloudWatch 로그 확인 권한만 포함된 커스텀 정책(`EC2-VPC-Limited-Policy`)을 할당했습니다. S3, RDS, IAM 계정 관리 등 과제 범위 외 권한을 차단하여 보안 유출 및 무단 과금 리스크를 최소화했습니다.
+
+
+### 리소스 태그 및 네이밍 컨벤션 (Naming & Tagging)
+* **네이밍 규칙**: 리소스의 용도와 프로젝트 식별을 위해 `mission-[리소스종류]` 형태의 일관된 식별자를 부여했습니다.
+  - VPC: `mission-vpc`
+  - Subnet: `mission-public-subnet`
+  - Internet Gateway: `mission-igw`
+  - Security Group: `mission-web-sg`
+  - EC2 Instance: `mission-web-server`
+* **태그 규칙**: 모든 리소스에 `Project: Cloud-Mission`, `Environment: Dev` 태그를 공통 부여하여 리소스 관리 및 추적성을 확보했습니다.
+
 ---
 
 ## 3. 외부 접속 검증
@@ -62,8 +77,17 @@
 - [x] AWS Billing Dashboard 0원 유지 확인
 
 ---
+## 6. 네트워크 설계 및 Outbound 트래픽 필요성, IAM과 SG의 차이
 
-## 6. 프로젝트 디렉터리 구조
+### Public Route 및 Outbound 트래픽의 필요성
+* **Outbound 인터넷 통신 필수**: EC2 인스턴스가 패키지 저장소에 접근하여 OS 보안 패치(`sudo apt update`) 및 웹 서버 프로그램 설치(`sudo apt install nginx`)를 수행하려면 외부 인터넷으로 나가는 **Outbound 트래픽**이 반드시 허용되어야 합니다.
+* **Public Route 역할**: Public Subnet 라우팅 테이블에 `0.0.0.0/0 -> Internet Gateway` 경로를 설정함으로써, 인스턴스의 패키지 다운로드(Outbound)와 외부 사용자의 웹 접속 요청에 대한 응답 트래픽 송신이 가능하도록 구성했습니다.
+
+### Security Group vs IAM 핵심 차이 요약
+> **Security Group**은 네트워크 레이어에서 IP 및 포트 번호 기반으로 EC2 인스턴스에 들고나는 **트래픽을 제어하는 가상 방화벽**이며, **IAM**은 사용자 및 서비스 단위로 AWS API 호출 및 **리소스 관리 권한을 제어하는 인증·인가 체계**입니다.
+
+---
+## 7. 프로젝트 디렉터리 구조
 
 ```text
 .
