@@ -6,8 +6,8 @@
 - [x] **EBS 볼륨**: 미사용 볼륨 삭제 확인
 - [x] **Elastic IP**: 할당 해제(Release) 완료
 - [x] **Internet Gateway**: VPC Detach 및 삭제 완료
-- [x] **VPC 및 Subnet / Route Table**: 삭제 완료[cite: 1]
-- [x] **Billing Dashboard**: 과금 항목 0원 유지 확인[cite: 1]
+- [x] **VPC 및 Subnet / Route Table**: 삭제 완료
+- [x] **Billing Dashboard**: 과금 항목 0원 유지 확인
 
 ## 삭제 증빙 스크린샷
 ![EC2 종료 상태](./ec2_terminated.png)
